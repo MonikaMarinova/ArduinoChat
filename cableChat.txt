@@ -1,0 +1,57 @@
+#include <AltSoftSerial.h>
+
+AltSoftSerial altSerial;
+String inputString = "";
+bool stringComplete = false;
+char c;
+
+void setup() {
+  Serial.begin(9600);
+  altSerial.begin(9600);
+
+  delay(1000);
+ /*
+ if(authorize() != 1){
+    Serial.println("Connection failed");
+    altSerial.println("Connection failed");
+  }
+  */
+  authorize();
+}
+
+void loop() {
+  //Send
+  if (Serial.available()) {
+    c = Serial.read();
+    altSerial.print(c);
+  }
+  //Recive
+  if (altSerial.available()) {
+    c = altSerial.read();
+    Serial.print(c);
+  }
+}
+
+/*  
+int authorize(){ //master
+  Serial.println("PIN");
+
+  altSerial.println("Enter key: ");
+  inputString = altSerial.read();
+
+  if(inputString.compareTo("PIN")){
+    altSerial.println("Connected");
+    Serial.println("Connected");
+    return 1;
+  }
+  else 
+  return 0;
+}
+*/
+void authorize(){ //slave
+  Serial.println("Enter key: ");
+  delay(500);
+  
+  c = Serial.read();
+    altSerial.print(c);  
+}
