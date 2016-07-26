@@ -36,7 +36,6 @@ void loop() {
 int authorize(){ //master
   Serial.println("PIN");
 
-  altSerial.println("Enter key: ");
   inputString = altSerial.read();
 
   if(inputString.compareTo("PIN")){
